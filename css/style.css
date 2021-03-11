@@ -7,14 +7,14 @@
 }
 
 button {
-    border-style: solid;
+    border-style:solid;
     border-width: 1px;
-    border-radius: 0px 0px 5px 5px;
-    padding: 3px 3px;
-    text-align: center;
+    border-radius: 5px 5px 5px 5px;
+    padding: 3px 10px;
+    display: inline;
     text-decoration: none;
-    display: inline-block;
-    font-size: 8px;
+    font-size: 12px;
+    margin : 0 18px;
   }
 
 /* #home-page{
@@ -22,8 +22,8 @@ button {
     background-repeat:no-repeat;
     background-color: white;
     background-size:cover ;
-    /* object-fit:scale-down; */
-    /* background-position: bottom left; */
+    object-fit:scale-down;
+    background-position: bottom left;
 } */
 
 body{
@@ -152,10 +152,10 @@ nav {
 .backlog-shadow{
     box-shadow: 10px 15px 3px rgb(42, 60, 80);
 }
-.product-shadow{
+.todo-shadow{
     box-shadow: 10px 15px 3px rgb(87, 26, 64);
 }
-.development-shadow{
+.doing-shadow{
     box-shadow: 10px 15px 3px rgb(45, 31, 83);
 }
 .done-shadow{
@@ -165,10 +165,10 @@ nav {
 #backlog-header{
     text-shadow: 2px 2px 1px rgb(121, 184, 255) ;
 }
-#product-header{
+#todo-header{
     text-shadow: 2px 2px 1px rgb(255, 95, 194) ;
 }
-#development-header{
+#doing-header{
     text-shadow: 2px 2px 1px rgb(148, 109, 255);
 }
 #done-header{
@@ -194,11 +194,11 @@ nav {
 
     background-color: rgb(238, 244, 255);
 }
-#product-each-content {
+#todo-each-content {
 
     background-color: rgb(255, 241, 250);
 }
-#development-each-content {
+#doing-each-content {
 
     background-color: rgb(244, 241, 255);
 }

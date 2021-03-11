@@ -1,0 +1,38 @@
+<template>
+
+  <div :id="categoryData.name+'-each-content'" class="each-content">
+    <div class="row">
+      <div class="col-12">{{taskData}}</div>
+    </div>
+    <div class="row">
+      <div class="col-8" v-for=" user in users " :key="user.id">{{users}}</div>
+    </div>
+    <div class="row justify-content-around">
+      <div class="w-100 mx-auto">
+        <button>Edit</button> <button>Delete</button> <button>Done</button>
+      </div>
+    </div>
+  </div>
+
+</template>
+
+<script>
+export default {
+    name : "task",
+    data(){
+        return {
+            dataUsers : []
+        }
+    },
+    props : ["users", "taskData", "categoryData"],
+    computed :{
+
+        filterUser(){
+            // let result = 
+        },
+    }
+};
+</script>
+
+<style>
+</style>
