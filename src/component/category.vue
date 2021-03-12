@@ -6,16 +6,18 @@
             <Task v-for="task in filterCategory.Tasks" :key="task.id "
             :categoryData = "categoryData"
             :taskData = "task"
-            :users = "filterCategory.Users"
+            :user = "task.User"
             >
-                
             </Task>
 
           
         </div>
         <div :id="categoryData.name+'-footer'" class="flex-footer">
           <form @submit.prevent="addTask(categoryData.name, categoryData.id)">
-            <input type="text" v-model="input" :id="categoryData.name+'-input'" />
+            <label :for="categoryData.name+'-input'">{{categoryData.name+' title'}}</label>
+            <input type="text" v-model="inputTaskTitle" :id="categoryData.name+'-input'" />
+            <label :for="categoryData.name+'-due_date'">{{categoryData.name+' due date'}}</label>
+            <input type="date" v-model="inputTaskDueDate" :id="categoryData.name+'-due_date'" />
             <button type="submit">Add {{categoryData.name}}</button>
           </form>
         </div>
@@ -24,40 +26,67 @@
 
 <script>
 import axios from 'axios'
-import Task from '../component/task.vue'
+import Task from './task.vue'
 export default {
     name : "category",
     components : {Task},
     data(){
         return {
             base_url : 'http://localhost:3000',
-            input : '',
+            inputTaskTitle : '',
+            inputTaskDueDate : '',
             tasks : []
         }
     },
     props : ["categories","categoryData"],
     methods : {
         addTask(catName, catId){
-            console.log(catName, catId);
-            console.log(this.input)
-
+            console.log( "masuk method addtask",this.inputTaskTitle, catId, this.inputTaskDueDate);
+            
+            axios({
+                url : this.base_url + "/tasks",
+                method : "post",
+                headers : {
+                    access_token : localStorage.access_token
+                },
+                data :{
+                    title : this.inputTaskTitle,
+                    CategoryId : catId,
+                    due_date : this.convertDateToString
+                }
+            })
+            .then(response=>{
+                console.log('masuk response add task', response.data);
+                this.getAllTask()
+            })
+            .catch(err=>{
+                console.log(err.response.data);
+            })
+            //then setelah catch mirip always()
+            .then(()=>{
+                this.inputTaskTitle = ''
+                this.inputTaskDueDate = ""
+            })
+        },
+        getAllTask(){
+            axios({
+                url : this.base_url + "/tasks",
+                method : "get",
+                headers : {
+                    access_token : localStorage.access_token
+                }
+            })
+            .then(response=>{
+                console.log(response.data, 'sudah masuk response getAllTask');
+                this.tasks = response.data
+            })
+            .catch(err=>{
+                console.log(err);
+            })
         }
     },
     created(){
-        axios({
-            url : this.base_url + "/tasks",
-            method : "get",
-            headers : {
-                access_token : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJhbmVAbWFpbC5jb20iLCJpYXQiOjE2MTU0Njk3NzJ9.LjuH3cTkvocjnbLQ61XSu-sUU0rjJrpgjKqcvYIReNg'
-            }
-        })
-        .then(response=>{
-            console.log(response.data);
-            this.tasks = response.data
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+        this.getAllTask()
 
     },
     computed : {
@@ -67,6 +96,9 @@ export default {
                 return e.name === this.categoryData.name
             })
             return result[0]
+        },
+        convertDateToString(){
+            return this.inputTaskDueDate.split("T")[0]
         }
     }
 

@@ -15,14 +15,19 @@
           <li><a href="">ABOUT</a></li>
         </ul>
       </div>
-      <div class="nav-item logout">Logout</div>
+      <div class="nav-item logout" @click="logout">Logout</div>
     </nav>
 </template>
 
 <script>
 export default {
     name : "nav",
-}
+    methods : {
+      logout(){
+        this.$emit("logout")
+      }
+    }
+} 
 </script>
 
 <style>

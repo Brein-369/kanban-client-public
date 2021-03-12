@@ -2,10 +2,10 @@
 
   <div :id="categoryData.name+'-each-content'" class="each-content">
     <div class="row">
-      <div class="col-12">{{taskData}}</div>
+      <div class="col-12">{{taskData.title}}</div>
     </div>
     <div class="row">
-      <div class="col-8" v-for=" user in users " :key="user.id">{{users}}</div>
+      <div class="col-8">{{user.email}}</div>
     </div>
     <div class="row justify-content-around">
       <div class="w-100 mx-auto">
@@ -21,16 +21,11 @@ export default {
     name : "task",
     data(){
         return {
-            dataUsers : []
+            
         }
     },
-    props : ["users", "taskData", "categoryData"],
-    computed :{
-
-        filterUser(){
-            // let result = 
-        },
-    }
+    props : ["user", "taskData", "categoryData"],
+    
 };
 </script>
 
