@@ -22,32 +22,57 @@
             <div class="invalid-feedback">Please fill out this field.</div>
           </div>
           <button type="submit" class="btn btn-primary" @click.prevent="login">Sign in</button>
+          
+
         </form>
-            <p class="text-center pt-5">Didn't have an account ? Register <a href="#" @click="toPageRegister">here</a></p>   
+        <p class="text-center pt-5">Didn't have an account ? Register <a href="#" @click="toPageRegister">here</a></p>   
+        <div class="d-flex justify-content-center">
+          <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess">TES</GoogleLogin>
+        </div>
+        
       </div>
-      
     </div>
   </div>
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
 export default {
-    name : "login",
-    data(){
-        return {
-            email : '',
-            password : ''
-        }
+  name: "login",
+  components : {
+    GoogleLogin
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+      params: {
+          client_id: "426626517402-7jig5uiuun145isk64p0oekgki73k37r.apps.googleusercontent.com"
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+          width: 250,
+          height: 50,
+          longtitle: true
+      }
+    };
+  },
+  methods: {
+    login() {
+      this.$emit("doSignIn", { email: this.email, password: this.password });
     },
-    methods : {
-        login(){
-            this.$emit("doSignIn", {email : this.email, password : this.password})
-        },
-        toPageRegister(){
-            this.$emit("changePageRegister")
-        }
+    toPageRegister() {
+      this.$emit("changePageRegister");
+    },
+    onSuccess(googleUser) {
+        console.log(googleUser, 'google.user');
+        let id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token, "id token<<<<");
+        // This only gets the user information: id, name, imageUrl and email
+        this.$emit("loginGoogle", id_token)
     }
-}
+  }
+};
 </script>
 
 <style>

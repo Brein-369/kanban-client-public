@@ -25,7 +25,7 @@
 
       </div>
       <div class="col-6 text-center">
-        <img src="https://image.freepik.com/free-vector/work-together-vector_65141-115.jpg" alt="login-image">
+        <img src="https://i.imgur.com/9D6l9Q7.png" alt="login-image">
       </div>
       
     </div>

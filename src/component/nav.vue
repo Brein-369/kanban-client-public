@@ -10,11 +10,14 @@
       </div>
       <div class="nav-item">
         <ul>
+          <!--hanya dicadangkan-->
           <li><a href="">HOME</a></li>
           <li><a href="">KANBAN</a></li>
           <li><a href="">ABOUT</a></li>
+          <!--hanya dicadangkan-->
         </ul>
       </div>
+      
       <div class="nav-item logout" @click="logout">Logout</div>
     </nav>
 </template>
@@ -26,6 +29,9 @@ export default {
       logout(){
         this.$emit("logout")
       }
+    },
+    mounted:{
+      
     }
 } 
 </script>
